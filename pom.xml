@@ -134,7 +134,7 @@
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<version>4.25.1</version>
 				<configuration>
-					<propertyFile> liquibase.properties </propertyFile>
+					<propertyFile>Application.properties</propertyFile>
 				</configuration>
 			</plugin>
 			<plugin>
