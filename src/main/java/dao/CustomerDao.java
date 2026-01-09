@@ -11,16 +11,10 @@ import util.DBConnectionUtil;
 
 
 
-
-
-
 public class CustomerDao {
-	private static  final int FIRST_PARAM_INDEX = 1;
+	private static final int FIRST_PARAM_INDEX = 1;
 	private static final int SECOND_PARAM_INDEX = 2;
 	private static final int THIRD_PARAM_INDEX = 3;
-
-	
-
 
 	public long createCustomer(String name, String mobile, String email) throws SQLException {
 
@@ -36,7 +30,7 @@ public class CustomerDao {
 			ps.executeUpdate();
 
 			ResultSet rs = ps.getGeneratedKeys();
-			if (rs.next()) {     
+			if (rs.next()) {
 				return rs.getLong(1);
 			}
 
