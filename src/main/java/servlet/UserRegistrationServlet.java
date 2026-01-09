@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Account;
-
+ 
 public class UserRegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID=2;
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserRegistrationServlet.class);

@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import service.UserService;
 
+
 public class LoginServlet extends HttpServlet {
 
     private final UserService userService = new UserService();
@@ -25,6 +26,7 @@ public class LoginServlet extends HttpServlet {
                 resp.getWriter().write("LOGIN SUCCESS");
             } else {
                 resp.getWriter().write("INVALID USERNAME OR PASSWORD");
+                
             }
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

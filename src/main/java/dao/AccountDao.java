@@ -13,8 +13,6 @@ import util.DBConnectionUtil;
 
 
 
-
- 
 public class AccountDao {
 	private static final int FIRST_PARAM_INDEX = 1;
 	private static final int SECOND_PARAM_INDEX = 2;
