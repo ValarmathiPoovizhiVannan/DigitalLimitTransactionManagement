@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,13 +11,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Account;
- 
+import util.PasswordUtil;
+
+
+
 public class UserRegistrationServlet extends HttpServlet {
-	private static final long serialVersionUID=2;
+	private static final long serialVersionUID = 2;
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserRegistrationServlet.class);
 
-
-	private final transient  CustomerDao customerDao;
+	private final transient CustomerDao customerDao;
 	private final transient AccountDao accountDao;
 
 	public UserRegistrationServlet() {
@@ -37,14 +38,17 @@ public class UserRegistrationServlet extends HttpServlet {
 		String name = req.getParameter("name");
 		String mobile = req.getParameter("mobile");
 		String email = req.getParameter("email");
+		String user_name = req.getParameter("username");
+		String password = req.getParameter("password");
 
-		if (name == null || mobile == null || email == null) {
+		if (name == null || mobile == null || email == null || user_name==null || password==null) {
 			resp.getWriter().write("INVALID_INPUT");
 			return;
 		}
 
 		try {
-			long customerId = customerDao.createCustomer(name, mobile, email);
+			String hashedPassword=PasswordUtil.hash(password);
+			long customerId = customerDao.createCustomer(name, mobile, email, user_name, hashedPassword);
 
 			Account account = new Account();
 			account.setCustomerId(customerId);
@@ -58,7 +62,7 @@ public class UserRegistrationServlet extends HttpServlet {
 
 		} catch (Exception e) {
 			String message = "Exception raised while authenticating user: " + e.getMessage();
-			LOGGER.warn(message); 
+			LOGGER.warn(message);
 			resp.getWriter().write("USER_CREATION_FAILED");
 		}
 	}

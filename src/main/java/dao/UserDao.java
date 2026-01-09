@@ -1,29 +1,18 @@
 package dao;
 
-import model.User;
 import util.DBConnectionUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import model.User;
+
 public class UserDao {
 
-	public void register(User user) throws Exception {
+	public static String getPassword(String username) throws Exception {
 
-		String sql = "INSERT INTO users (username, password) VALUES (?, ?)";
-
-		try (Connection con = DBConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-
-			ps.setString(1, user.getUsername());
-			ps.setString(2, user.getPassword());
-			ps.executeUpdate();
-		}
-	}
-
-	public String getPassword(String username) throws Exception {
-
-		String sql = "SELECT password FROM users WHERE username = ?";
+		String sql = "SELECT password FROM Customer WHERE username = ?";
 
 		try (Connection con = DBConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 

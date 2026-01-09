@@ -2,35 +2,35 @@ package servlet;
 
 import java.io.IOException;
 
+import dao.CustomerDao;
+import dao.UserDao;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import service.UserService;
+ import util.PasswordUtil;
 
-
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-    private final UserService userService = new UserService();
-
+ 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-
         try {
-            boolean success = userService.login(username, password);
+			String hashedPassword= UserDao.getPassword(username);
+			if(hashedPassword!=null && PasswordUtil.match(password, hashedPassword)) {
+			    resp.getWriter().write("LOGIN_SUCCESS");				
+			}else {
+				resp.getWriter().write("Invalid UserName and Password");
+			}
+		} catch (Exception e) {
+ 			e.printStackTrace();
+		}
 
-            if (success) {
-                resp.getWriter().write("LOGIN SUCCESS");
-            } else {
-                resp.getWriter().write("INVALID USERNAME OR PASSWORD");
-                
-            }
-        } catch (Exception e) {
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().write("SERVER ERROR");
-        }
+       
     }
 }

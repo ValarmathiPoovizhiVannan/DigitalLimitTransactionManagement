@@ -5,7 +5,9 @@ CREATE TABLE customer (
     customer_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
     mobile VARCHAR(15),
-    email VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    user_name VARCHAR(150) UNIQUE,
+    password VARCHAR(150) ,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -38,6 +40,21 @@ id INT AUTO_INCREMENT PRIMARY KEY,
 username VARCHAR(50) UNIQUE NOT NULL,
 password VARCHAR(30) NOT NULL);
 
---changeset valar:5
-ALTER TABLE customer
-ADD password VARCHAR(50) NOT NULL;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

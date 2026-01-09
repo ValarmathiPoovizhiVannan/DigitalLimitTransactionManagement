@@ -1,11 +1,9 @@
 package dao;
 
 import static org.mockito.Mockito.*;
-
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
