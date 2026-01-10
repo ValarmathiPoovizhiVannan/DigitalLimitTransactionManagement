@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+<<<<<<< HEAD
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+         https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+    <!-- ================== LOGIN ================== -->
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>servlet.LoginServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+
+    <!-- ================== LOGOUT ================== -->
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>servlet.LogoutServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+
+    <!-- ================== REGISTRATION ================== -->
+    <servlet>
+        <servlet-name>UserRegistrationServlet</servlet-name>
+        <servlet-class>servlet.UserRegistrationServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UserRegistrationServlet</servlet-name>
+        <url-pattern>/user/register</url-pattern>
+    </servlet-mapping>
+
+
+    <!-- ================== TRANSACTION ================== -->
+    <servlet>
+        <servlet-name>TransactionServlet</servlet-name>
+        <servlet-class>servlet.TransactionServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>TransactionServlet</servlet-name>
+        <url-pattern>/upi/transaction</url-pattern>
+    </servlet-mapping>
+
+
+    <!-- ================== AUTH FILTER ================== -->
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>filter.AuthFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/upi/transaction</url-pattern>
+    </filter-mapping>
+
+</web-app>
+=======
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+         https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+	version="6.0">
+
+	<servlet>
+		<servlet-name>TransactionServlet</servlet-name>
+		<servlet-class>servlet.TransactionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TransactionServlet</servlet-name>
+		<url-pattern>/upi/transaction</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>UserRegistrationServlet</servlet-name>
+		<servlet-class>servlet.UserRegistrationServlet</servlet-class>
+	</servlet>
+	<servlet-mapping> 
+		<servlet-name>UserRegistrationServlet</servlet-name>
+		<url-pattern>/user/register</url-pattern>
+	</servlet-mapping>
+	
+<!-- <servlet>
+		<servlet-name>LoginServlet</servlet-name>
+		<servlet-class>servlet.LoginServlett</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping> -->
+
+
+</web-app>
+>>>>>>> 4dd1b453739300eee62eb23ae25e880f63b07297
