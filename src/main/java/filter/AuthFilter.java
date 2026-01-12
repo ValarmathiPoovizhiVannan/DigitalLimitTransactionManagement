@@ -24,7 +24,7 @@ public class AuthFilter implements Filter {
 		HttpSession session = req.getSession(false);
 
 		if (session != null && session.getAttribute("username") != null) {
-			chain.doFilter(request, response); 
+			chain.doFilter(request, response);
 		} else {
 			resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			resp.setContentType("text/plain");
