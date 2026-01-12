@@ -44,9 +44,9 @@ public class AccountDao {
 		return null;
 	}
 
-	public void updateBalanceByAccountNumber(String accountNumber, BigDecimal newBalance) throws SQLException {
+	public void updateBalanceByAccountNumber(String accountNumber, BigDecimal newBalance,BigDecimal dailyLimit) throws SQLException {
 
-		String sql = "UPDATE account SET balance = ? WHERE account_number = ?";
+		String sql = "UPDATE account SET balance = ? ,daily_limit=? WHERE account_number = ?";
 
 		try (Connection con = DBConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -80,4 +80,17 @@ public class AccountDao {
 			throw new AccessException("failed to create account", e);
 		}
 	}
-}
+
+	public int resetDailyLimitForAllAccounts(BigDecimal dailyLimit) {
+		
+	
+		String sql= "update account SET daily_limit=?";
+		try (Connection con = DBConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+			ps.setBigDecimal(FIRST_PARAM_INDEX,dailyLimit );
+		
+		return ps.executeUpdate();
+	} catch (Exception e) {
+		throw new AccessException("failed to create account", e);
+	}
+	}}
