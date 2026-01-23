@@ -8,7 +8,7 @@ CREATE TABLE customer (
     email VARCHAR(100) UNIQUE,
     user_name VARCHAR(150) UNIQUE,
     password VARCHAR(150) ,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP``
 );
 
 --changeset valar:2

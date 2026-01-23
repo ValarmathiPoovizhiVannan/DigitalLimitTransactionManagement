@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
  import util.PasswordUtil;
 
-@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
  

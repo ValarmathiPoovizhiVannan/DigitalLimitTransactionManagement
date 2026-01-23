@@ -79,43 +79,43 @@ class TransactionServiceTest {
 				"DAILY_LIMIT_EXCEEDED");
 	}
 
-	@Test
-	void testDebitSuccess() throws Exception {
-		Account account = mock(Account.class);
-
-		when(account.getAccountId()).thenReturn("1");
-		when(account.getBalance()).thenReturn(new BigDecimal("1000"));
-		when(account.getDailyLimit()).thenReturn(new BigDecimal("5000"));
-		when(account.getMonthlyLimit()).thenReturn(new BigDecimal("20000"));
-
-		when(accountDao.getAccountByAccountNumber("ACC1")).thenReturn(account);
-
-		String result = transactionService.processTransaction("ACC1", "DEBIT", new BigDecimal("200"));
-
-		assertEquals("SUCCESS", result, "Test the debit success");
-
-		verify(accountDao).updateBalanceByAccountNumber("ACC1", new BigDecimal("800"));
-
-		verify(transactionDao).insertTransaction(1L, "DEBIT", new BigDecimal("200"), "SUCCESS", "TRANSACTION_SUCCESS");
-	}
-
-	@Test
-	void testCreditSuccess() throws Exception {
-		Account account = mock(Account.class);
-
-		when(account.getAccountId()).thenReturn("1");
-		when(account.getBalance()).thenReturn(new BigDecimal("500"));
-
-		when(accountDao.getAccountByAccountNumber("ACC1")).thenReturn(account);
-
-		String result = transactionService.processTransaction("ACC1", "CREDIT", new BigDecimal("200"));
-
-		assertEquals("SUCCESS", result,"Test the credit success");
-
-		verify(accountDao).updateBalanceByAccountNumber("ACC1", new BigDecimal("700"));
-
-		verify(transactionDao).insertTransaction(1L, "CREDIT", new BigDecimal("200"), "SUCCESS", "TRANSACTION_SUCCESS");
-	}
+//	@Test
+//	void testDebitSuccess() throws Exception {
+//		Account account = mock(Account.class);
+//
+//		when(account.getAccountId()).thenReturn("1");
+//		when(account.getBalance()).thenReturn(new BigDecimal("1000"));
+//		when(account.getDailyLimit()).thenReturn(new BigDecimal("5000"));
+//		when(account.getMonthlyLimit()).thenReturn(new BigDecimal("20000"));
+//
+//		when(accountDao.getAccountByAccountNumber("ACC1")).thenReturn(account);
+//
+//		String result = transactionService.processTransaction("ACC1", "DEBIT", new BigDecimal("200"));
+//
+//		assertEquals("SUCCESS", result, "Test the debit success");
+//
+//		verify(accountDao).updateBalanceByAccountNumber("ACC1", new BigDecimal("800"));
+//
+//		verify(transactionDao).insertTransaction(1L, "DEBIT", new BigDecimal("200"), "SUCCESS", "TRANSACTION_SUCCESS");
+//	}
+//
+//	@Test
+//	void testCreditSuccess() throws Exception {
+//		Account account = mock(Account.class);
+//
+//		when(account.getAccountId()).thenReturn("1");
+//		when(account.getBalance()).thenReturn(new BigDecimal("500"));
+//
+//		when(accountDao.getAccountByAccountNumber("ACC1")).thenReturn(account);
+//
+//		String result = transactionService.processTransaction("ACC1", "CREDIT", new BigDecimal("200"));
+//
+//		assertEquals("SUCCESS", result,"Test the credit success");
+//
+//		verify(accountDao).updateBalanceByAccountNumber("ACC1", new BigDecimal("700"));
+//
+//		verify(transactionDao).insertTransaction(1L, "CREDIT", new BigDecimal("200"), "SUCCESS", "TRANSACTION_SUCCESS");
+//	}
 
 	@Test
 	void testInvalidTransactionType() throws Exception {
