@@ -1,5 +1,5 @@
 erDiagram
-CUSTOMER {
+    CUSTOMER {
         BIGINT customer_id PK
         VARCHAR name
         VARCHAR mobile
@@ -28,8 +28,3 @@ CUSTOMER {
 
     CUSTOMER ||--o{ ACCOUNT : owns
     ACCOUNT ||--o{ TRANSACTION_HISTORY : records
-
-
-
-
-
