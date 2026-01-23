@@ -1,6 +1,6 @@
 ```mermaid
 SequenceDiagram
-participant Client
+    participant Client
     participant AuthFilter
     participant LoginServlet
     participant UserRegistrationServlet
