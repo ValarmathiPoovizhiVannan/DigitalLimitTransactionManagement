@@ -1,9 +1,12 @@
+```mermaid
 CUSTOMER {
         BIGINT customer_id PK
         VARCHAR name
         VARCHAR mobile
         VARCHAR email
         TIMESTAMP created_at
+        VARCHAR user_name
+        VARCHAR password
     }
 
     ACCOUNT {
