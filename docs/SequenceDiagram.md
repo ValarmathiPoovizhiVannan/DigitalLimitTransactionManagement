@@ -1,5 +1,5 @@
 ```mermaid
-SequenceDiagram
+sequenceDiagram
     participant Client
     participant AuthFilter
     participant LoginServlet
@@ -102,4 +102,5 @@ SequenceDiagram
     Client ->> LogoutServlet: POST /logout
     LogoutServlet ->> LogoutServlet: invalidate session
     LogoutServlet -->> Client: LOGOUT_SUCCESS
+
 
