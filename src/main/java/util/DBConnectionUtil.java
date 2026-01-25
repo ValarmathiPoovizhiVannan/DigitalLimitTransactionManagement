@@ -3,7 +3,6 @@ package util;
 import java.sql.Connection;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
-import jakarta.servlet.annotation.WebListener;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.Logger;
@@ -11,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
-@WebListener
 public class DBConnectionUtil implements ServletContextListener {
 
 	private static HikariDataSource DATASOURCE;
@@ -23,7 +21,7 @@ public class DBConnectionUtil implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
 		try {
 			Properties dbprops = new Properties();
-			dbprops.load(getClass().getClassLoader().getResourceAsStream("Application.properties"));
+			dbprops.load(getClass().getClassLoader().getResourceAsStream("application.properties"));
 
 			hconfig.setDriverClassName(dbprops.getProperty("driver"));
 			hconfig.setJdbcUrl(dbprops.getProperty("url"));

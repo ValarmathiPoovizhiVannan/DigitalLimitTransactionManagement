@@ -12,7 +12,7 @@ public class UserDao {
 
 	public static String getPassword(String username) throws Exception {
 
-		String sql = "SELECT password FROM Customer WHERE username = ?";
+		String sql = "SELECT password FROM Customer WHERE user_name = ?";
 
 		try (Connection con = DBConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 

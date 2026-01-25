@@ -1,6 +1,7 @@
 package servlet;
 
 import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -15,87 +16,88 @@ import model.Account;
 
 class UserRegistrationServletTest {
 
-     @Test
-    void testUserRegistrationSuccess() throws Exception {
+	@Test
+	void testUserRegistrationSuccess() throws Exception {
 
-        CustomerDao customerDao = mock(CustomerDao.class);
-        AccountDao accountDao = mock(AccountDao.class);
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
+		CustomerDao customerDao = mock(CustomerDao.class);
+		AccountDao accountDao = mock(AccountDao.class);
+		HttpServletRequest request = mock(HttpServletRequest.class);
+		HttpServletResponse response = mock(HttpServletResponse.class);
 
-        when(request.getParameter("name")).thenReturn("John");
-        when(request.getParameter("mobile")).thenReturn("9876543210");
-        when(request.getParameter("email")).thenReturn("john@test.com");
-        when(request.getParameter("username")).thenReturn("john123");
-        when(request.getParameter("password")).thenReturn("pass123");
+		when(request.getParameter("name")).thenReturn("John");
+		when(request.getParameter("mobile")).thenReturn("9876543210");
+		when(request.getParameter("email")).thenReturn("john@test.com");
+		when(request.getParameter("username")).thenReturn("john123");
+		when(request.getParameter("password")).thenReturn("Pass@123");
 
-        when(customerDao.createCustomer(
-                anyString(), anyString(), anyString(), anyString(), anyString()))
-                .thenReturn(1L);
+		when(customerDao.createCustomer(anyString(), anyString(), anyString(), anyString(), anyString()))
+				.thenReturn(1L);
 
-        when(accountDao.createAccount(any(Account.class)))
-                .thenReturn("ACC1001");
+		when(accountDao.createAccount(any(Account.class))).thenReturn("ACC1001");
 
-        StringWriter sw = new StringWriter();
-        when(response.getWriter()).thenReturn(new PrintWriter(sw));
+		StringWriter sw = new StringWriter();
+		when(response.getWriter()).thenReturn(new PrintWriter(sw));
 
-        UserRegistrationServlet servlet =
-                new UserRegistrationServlet(customerDao, accountDao);
+		UserRegistrationServlet servlet = new UserRegistrationServlet(customerDao, accountDao);
 
-        servlet.doPost(request, response);
+		servlet.doPost(request, response);
 
-        assert sw.toString().contains("USER_CREATED");
-    }
+		assertTrue(sw.toString().contains("USER_CREATED"));
+		assertTrue(sw.toString().contains("ACCOUNT_NUMBER=ACC1001"));
+	}
 
-     @Test
-    void testInvalidInput() throws Exception {
+	@Test
+	void testInvalidInput() throws Exception {
 
-        CustomerDao customerDao = mock(CustomerDao.class);
-        AccountDao accountDao = mock(AccountDao.class);
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
+		CustomerDao customerDao = mock(CustomerDao.class);
+		AccountDao accountDao = mock(AccountDao.class);
+		HttpServletRequest request = mock(HttpServletRequest.class);
+		HttpServletResponse response = mock(HttpServletResponse.class);
 
-        when(request.getParameter("name")).thenReturn(null);
+		when(request.getParameter("name")).thenReturn("John");
+		when(request.getParameter("mobile")).thenReturn("123");
+		when(request.getParameter("email")).thenReturn("john@test.com");
+		when(request.getParameter("username")).thenReturn("john123");
+		when(request.getParameter("password")).thenReturn("Pass@123");
 
-        StringWriter sw = new StringWriter();
-        when(response.getWriter()).thenReturn(new PrintWriter(sw));
+		StringWriter sw = new StringWriter();
+		when(response.getWriter()).thenReturn(new PrintWriter(sw));
 
-        UserRegistrationServlet servlet =
-                new UserRegistrationServlet(customerDao, accountDao);
+		UserRegistrationServlet servlet = new UserRegistrationServlet(customerDao, accountDao);
 
-        servlet.doPost(request, response);
+		servlet.doPost(request, response);
 
-        assert sw.toString().equals("INVALID_INPUT");
-        verifyNoInteractions(customerDao);
-        verifyNoInteractions(accountDao);
-    }
+		verify(response).setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		assertEquals("INVALID_INPUT", sw.toString());
 
-     @Test
-    void testExceptionDuringUserCreation() throws Exception {
+		verifyNoInteractions(customerDao);
+		verifyNoInteractions(accountDao);
+	}
 
-        CustomerDao customerDao = mock(CustomerDao.class);
-        AccountDao accountDao = mock(AccountDao.class);
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
+	@Test
+	void testExceptionDuringUserCreation() throws Exception {
 
-        when(request.getParameter("name")).thenReturn("John");
-        when(request.getParameter("mobile")).thenReturn("9876543210");
-        when(request.getParameter("email")).thenReturn("john@test.com");
-        when(request.getParameter("username")).thenReturn("john123");
-        when(request.getParameter("password")).thenReturn("pass123");
+		CustomerDao customerDao = mock(CustomerDao.class);
+		AccountDao accountDao = mock(AccountDao.class);
+		HttpServletRequest request = mock(HttpServletRequest.class);
+		HttpServletResponse response = mock(HttpServletResponse.class);
 
-        when(customerDao.createCustomer(
-                anyString(), anyString(), anyString(), anyString(), anyString()))
-                .thenThrow(new RuntimeException("DB error"));
+		when(request.getParameter("name")).thenReturn("John");
+		when(request.getParameter("mobile")).thenReturn("9876543210");
+		when(request.getParameter("email")).thenReturn("john@test.com");
+		when(request.getParameter("username")).thenReturn("john123");
+		when(request.getParameter("password")).thenReturn("Pass@123");
 
-        StringWriter sw = new StringWriter();
-        when(response.getWriter()).thenReturn(new PrintWriter(sw));
+		when(customerDao.createCustomer(anyString(), anyString(), anyString(), anyString(), anyString()))
+				.thenThrow(new RuntimeException("DB error"));
 
-        UserRegistrationServlet servlet =
-                new UserRegistrationServlet(customerDao, accountDao);
+		StringWriter sw = new StringWriter();
+		when(response.getWriter()).thenReturn(new PrintWriter(sw));
 
-        servlet.doPost(request, response);
+		UserRegistrationServlet servlet = new UserRegistrationServlet(customerDao, accountDao);
 
-        assert sw.toString().equals("USER_CREATION_FAILED");
-    }
+		servlet.doPost(request, response);
+
+		assertEquals("USER_CREATION_FAILED", sw.toString());
+	}
 }

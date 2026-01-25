@@ -43,21 +43,24 @@ public class AccountDao {
 
 		return null;
 	}
+	public void updateBalanceByAccountNumber(
+	        String accountNumber,
+	        BigDecimal newBalance,
+	        BigDecimal dailyLimit) throws Exception {
 
-	public void updateBalanceByAccountNumber(String accountNumber, BigDecimal newBalance,BigDecimal dailyLimit) throws SQLException {
+	    String sql = "UPDATE account SET balance = ?, daily_limit = ? WHERE account_number = ?";
 
-		String sql = "UPDATE account SET balance = ? ,daily_limit=? WHERE account_number = ?";
+	    try (Connection con = DBConnectionUtil.getConnection();
+	         PreparedStatement ps = con.prepareStatement(sql)) {
 
-		try (Connection con = DBConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+	        ps.setBigDecimal(1, newBalance);
+	        ps.setBigDecimal(2, dailyLimit);
+	        ps.setString(3, accountNumber);
 
-			ps.setBigDecimal(FIRST_PARAM_INDEX, newBalance);
-			ps.setString(SECOND_PARAM_INDEX, accountNumber);
-			ps.executeUpdate();
-		} catch (Exception e) {
-			throw new AccessException("failed to update the Balance", e);
-		}
-
+	        ps.executeUpdate();
+	    }
 	}
+
 
 	public String createAccount(Account account) throws SQLException {
 
@@ -93,4 +96,18 @@ public class AccountDao {
 	} catch (Exception e) {
 		throw new AccessException("failed to create account", e);
 	}
-	}}
+	}
+	public int resetDailyLimit() throws Exception {
+		int maxLimit = 5000;
+
+         try (Connection con = DBConnectionUtil.getConnection();
+             PreparedStatement ps = con.prepareStatement(
+                     "UPDATE account SET daily_limit = max_limit")) {
+
+            con.setAutoCommit(false);
+            int rows = ps.executeUpdate();
+            con.commit();
+            return rows;
+        }
+    }}
+

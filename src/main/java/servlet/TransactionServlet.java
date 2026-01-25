@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Account;
 import service.TransactionService;
+import util.InputValidator;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -25,10 +26,14 @@ public final class TransactionServlet extends HttpServlet {
 		String txnType = req.getParameter("txnType");
 		String amountStr = req.getParameter("amount");
 
-		if (accountNumber == null || txnType == null || amountStr == null) {
-			resp.getWriter().write("MISSING_PARAMETERS");
-			return;
-		}
+		if (!InputValidator.isValidAccountNumber(accountNumber) ||
+			    !InputValidator.isValidAmount(amountStr)) {
+			    
+			    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			    resp.getWriter().write("INVALID_PARAMETERS");
+			    return;
+			}
+
 
 		BigDecimal amount;
 		try {

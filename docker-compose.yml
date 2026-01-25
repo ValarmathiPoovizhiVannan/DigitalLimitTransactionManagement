@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: digitallimit-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: fintech
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: ValarPoo21.
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    image: digitallimit:latest
+    container_name: digitallimit-app
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"

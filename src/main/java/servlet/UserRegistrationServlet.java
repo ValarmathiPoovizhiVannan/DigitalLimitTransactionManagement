@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Account;
+import util.InputValidator;
 import util.PasswordUtil;
 
 
@@ -41,10 +42,15 @@ public class UserRegistrationServlet extends HttpServlet {
 		String user_name = req.getParameter("username");
 		String password = req.getParameter("password");
 
-		if (name == null || mobile == null || email == null || user_name==null || password==null) {
-			resp.getWriter().write("INVALID_INPUT");
-			return;
-		}
+		if (!InputValidator.isValidUsername(user_name) ||
+			    !InputValidator.isValidPassword(password) ||
+			    !InputValidator.isValidEmail(email) ||
+			    !InputValidator.isValidMobile(mobile)) {
+			    
+			    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			    resp.getWriter().write("INVALID_INPUT");
+			    return;
+			}
 
 		try {
 			String hashedPassword=PasswordUtil.hash(password);

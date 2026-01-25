@@ -7,8 +7,11 @@ import dao.AccountDao;
 import dao.TransactionDao;
 import exceptions.AccessException;
 import model.Account;
+import model.Transaction;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.util.List;
 
 public class TransactionService {
 
@@ -107,4 +110,18 @@ public class TransactionService {
 
 		account.setDailyLimit(updatedDailyLimit);
 	}
+	public List<Transaction> getTransactionHistory(
+	        String accountNumber, int page, int size) throws SQLException {
+
+	    Account account = accountDao.getAccountByAccountNumber(accountNumber);
+
+	    if (account == null) {
+	        throw new AccessException("INVALID_ACCOUNT");
+	    }
+
+	    long accountId = Long.parseLong(account.getAccountId());
+
+	    return transactionDao.getTransactionsByAccount(accountId, page, size);
+	}
+
 }

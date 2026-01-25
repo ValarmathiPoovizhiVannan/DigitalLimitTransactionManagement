@@ -1,4 +1,5 @@
 ```mermaid
+erDiagram
 CUSTOMER {
         BIGINT customer_id PK
         VARCHAR name
