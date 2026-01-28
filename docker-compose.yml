@@ -1,18 +1,30 @@
 version: '3.8'
 
 services:
-  db:
+  fintech-db:
     image: mysql:8.0
-    container_name: digitallimit-db
+    container_name: fintech-db
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: fintech
       MYSQL_USER: appuser
       MYSQL_PASSWORD: ValarPoo21.
-    ports:
-      - "3306:3306"
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  quartz-db:
+    image: mysql:8.0
+    container_name: quartz-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: quartzuser
+      MYSQL_PASSWORD: ValarPoo21.
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -21,7 +33,19 @@ services:
     image: digitallimit:latest
     container_name: digitallimit-app
     depends_on:
-      db:
+      fintech-db:
         condition: service_healthy
+      quartz-db:
+        condition: service_healthy
+    environment:
+      # Fintech DB
+      FINTECH_DB_URL: jdbc:mysql://fintech-db:3306/fintech
+      FINTECH_DB_USER: appuser
+      FINTECH_DB_PASSWORD: ValarPoo21.
+
+      # Quartz DB
+      QUARTZ_DB_URL: jdbc:mysql://quartz-db:3306/mydb
+      QUARTZ_DB_USER: quartzuser
+      QUARTZ_DB_PASSWORD: ValarPoo21.
     ports:
       - "8080:8080"

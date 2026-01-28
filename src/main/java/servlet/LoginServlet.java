@@ -1,15 +1,17 @@
 package servlet;
 
 import dao.UserDao;
-import jakarta.servlet.http.*;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import util.JwtUtil;
 import util.PasswordUtil;
 
 import java.io.IOException;
 
 public class LoginServlet extends HttpServlet {
+	 public static final long serialVersionUI= 4;
 
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 

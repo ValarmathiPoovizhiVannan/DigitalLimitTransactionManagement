@@ -11,5 +11,9 @@ public class AccessException extends RuntimeException {
 		super(message);
 	}
 
+	public AccessException(Exception e) {
+		super(e);
+ 	}
+
 	
 }

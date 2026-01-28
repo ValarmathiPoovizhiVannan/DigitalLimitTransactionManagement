@@ -6,9 +6,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import model.User;
 
 public class UserDao {
+	private UserDao() {
+     }
 
 	public static String getPassword(String username) throws Exception {
 
@@ -19,8 +20,11 @@ public class UserDao {
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
 
-			return rs.next() ? rs.getString("password") : null;
-		}
+			if (rs.next()) {
+			    return rs.getString("password");
+			} else {
+			    return null;
+			}		}
 	}
 
 }

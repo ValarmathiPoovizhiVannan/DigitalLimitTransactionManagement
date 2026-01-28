@@ -6,6 +6,7 @@ import util.JwtUtil;
 
 import java.io.IOException;
 
+
 public class JwtAuthFilter implements Filter {
 
     @Override
@@ -24,15 +25,15 @@ public class JwtAuthFilter implements Filter {
             resp.getWriter().write("TOKEN_MISSING");
             return;
         }
-
-        String token = authHeader.substring(7);
+   int Seventh_Index=7;
+        String token = authHeader.substring(Seventh_Index);
 
         try {
             String username = JwtUtil.validateTokenAndGetUsername(token);
             req.setAttribute("username", username);
             chain.doFilter(request, response);
         } catch (Exception e) {
-            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+     		resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             resp.getWriter().write("INVALID_OR_EXPIRED_TOKEN");
         }
     }

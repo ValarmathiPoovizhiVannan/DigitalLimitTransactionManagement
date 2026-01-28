@@ -50,7 +50,7 @@ class TransactionHistoryServletTest {
     @Test
     void testTransactionHistorySuccess() throws Exception {
          when(request.getParameter("accountNumber")).thenReturn("10001");
-        when(request.getParameter("page")).thenReturn("0"); // servlet converts to 1
+        when(request.getParameter("page")).thenReturn("0"); 
         when(request.getParameter("size")).thenReturn("2");
 
          Transaction t1 = new Transaction(1L, 10001L, "CREDIT", new BigDecimal("1000"), LocalDate.now(), "SUCCESS", "Salary");

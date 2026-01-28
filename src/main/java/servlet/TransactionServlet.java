@@ -23,7 +23,6 @@ public final class TransactionServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
 		String accountNumber = req.getParameter("accountNumber");
-		String txnType = req.getParameter("txnType");
 		String amountStr = req.getParameter("amount");
 
 		if (!InputValidator.isValidAccountNumber(accountNumber) ||
@@ -42,6 +41,7 @@ public final class TransactionServlet extends HttpServlet {
 			resp.getWriter().write("INVALID_AMOUNT");
 			return;
 		}
+		String txnType = req.getParameter("txnType");
 
 		String result = service.processTransaction(accountNumber, txnType, amount);
 

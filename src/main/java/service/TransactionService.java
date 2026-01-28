@@ -21,6 +21,7 @@ public class TransactionService {
 	private final TransactionDao transactionDao;
 	private static final String STATUS_REJECT = "REJECTED";
 	private static final String STATUS_SUCCESS = "SUCCESS";
+	 private static final String Daily_Limit= "DAILY_LIMIT_EXCEEDED";
 
 	public TransactionService() {
 		this.accountDao = new AccountDao();
@@ -42,6 +43,7 @@ public class TransactionService {
 			if (account == null) {
 				LOGGER.warn("Invalid account {}", accountNumber);
 				result = "INVALID_ACCOUNT";
+				
 			} else {
 
 				long accId = Long.parseLong(account.getAccountId());
@@ -53,8 +55,8 @@ public class TransactionService {
 						result = "INSUFFICIENT_BALANCE";
 
 					} else if (amount.compareTo(account.getDailyLimit()) > 0) {
-						transactionDao.insertTransaction(accId, txnType, amount, STATUS_REJECT, "DAILY_LIMIT_EXCEEDED");
-						result = "DAILY_LIMIT_EXCEEDED";
+						transactionDao.insertTransaction(accId, txnType, amount, STATUS_REJECT, Daily_Limit);
+						result = Daily_Limit;
 
 					} else {
 						BigDecimal newBalance = account.getBalance().subtract(amount);
@@ -103,7 +105,7 @@ public class TransactionService {
 		BigDecimal currentDailyLimit = account.getDailyLimit();
 
 		if (currentDailyLimit.compareTo(amount) < 0) {
-			throw new AccessException("DAILY_LIMIT_EXCEEDED");
+			throw new AccessException(Daily_Limit);
 		}
 
 		BigDecimal updatedDailyLimit = currentDailyLimit.subtract(amount);

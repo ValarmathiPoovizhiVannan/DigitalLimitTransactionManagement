@@ -14,8 +14,6 @@ import model.Account;
 import util.InputValidator;
 import util.PasswordUtil;
 
-
-
 public class UserRegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 2;
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserRegistrationServlet.class);
@@ -36,25 +34,23 @@ public class UserRegistrationServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-		String name = req.getParameter("name");
 		String mobile = req.getParameter("mobile");
 		String email = req.getParameter("email");
-		String user_name = req.getParameter("username");
+		String userName = req.getParameter("username");
 		String password = req.getParameter("password");
 
-		if (!InputValidator.isValidUsername(user_name) ||
-			    !InputValidator.isValidPassword(password) ||
-			    !InputValidator.isValidEmail(email) ||
-			    !InputValidator.isValidMobile(mobile)) {
-			    
-			    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			    resp.getWriter().write("INVALID_INPUT");
-			    return;
-			}
+		if (!InputValidator.isValidUsername(userName) || !InputValidator.isValidPassword(password)
+				|| !InputValidator.isValidEmail(email) || !InputValidator.isValidMobile(mobile)) {
+
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			resp.getWriter().write("INVALID_INPUT");
+			return;
+		}
+		String name = req.getParameter("name");
 
 		try {
-			String hashedPassword=PasswordUtil.hash(password);
-			long customerId = customerDao.createCustomer(name, mobile, email, user_name, hashedPassword);
+			String hashedPassword = PasswordUtil.hash(password);
+			long customerId = customerDao.createCustomer(name, mobile, email, userName, hashedPassword);
 
 			Account account = new Account();
 			account.setCustomerId(customerId);

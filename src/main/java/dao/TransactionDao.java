@@ -37,48 +37,40 @@ public class TransactionDao {
 			throw new AccessException("Customer creation failed", e);
 		}
 	}
-	
-	public List<Transaction> getTransactionsByAccount(
-	        long accountId, int page, int size) {
 
-	    int offset = (page - 1) * size;
+	public List<Transaction> getTransactionsByAccount(long accountId, int page, int size) {
 
-	    String sql = """
-	        SELECT txn_id, account_id, txn_type, amount, txn_date, status, reason
-	        FROM transaction_history
-	        WHERE account_id = ?
-	        ORDER BY txn_date DESC
-	        LIMIT ? OFFSET ?
-	    """;
+		int offset = (page - 1) * size;
 
-	    List<Transaction> transactions = new ArrayList<>();
+		String sql = """
+				    SELECT txn_id, account_id, txn_type, amount, txn_date, status, reason
+				    FROM transaction_history
+				    WHERE account_id = ?
+				    ORDER BY txn_date DESC
+				    LIMIT ? OFFSET ?
+				""";
 
-	    try (Connection con = DBConnectionUtil.getConnection();
-	         PreparedStatement ps = con.prepareStatement(sql)) {
+		List<Transaction> transactions = new ArrayList<>();
 
-	        ps.setLong(FIRST_PARAM_INDEX, accountId);
-	        ps.setInt(SECOND_PARAM_INDEX, size);
-	        ps.setInt(THIRD_PARAM_INDEX, offset);
+		try (Connection con = DBConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
-	        ResultSet rs = ps.executeQuery();
+			ps.setLong(FIRST_PARAM_INDEX, accountId);
+			ps.setInt(SECOND_PARAM_INDEX, size);
+			ps.setInt(THIRD_PARAM_INDEX, offset);
 
-	        while (rs.next()) {
-	            transactions.add(new Transaction(
-	                rs.getLong("txn_id"),
-	                rs.getLong("account_id"),
-	                rs.getString("txn_type"),
-	                rs.getBigDecimal("amount"),
-	                rs.getDate("txn_date").toLocalDate(),
-	                rs.getString("status"),
-	                rs.getString("reason")
-	            ));
-	        }
+			ResultSet rs = ps.executeQuery();
 
-	    } catch (Exception e) {
-	        throw new AccessException("Failed to fetch transactions", e);
-	    }
+			while (rs.next()) {
+				transactions.add(new Transaction(rs.getLong("txn_id"), rs.getLong("account_id"),
+						rs.getString("txn_type"), rs.getBigDecimal("amount"), rs.getDate("txn_date").toLocalDate(),
+						rs.getString("status"), rs.getString("reason")));
+			}
 
-	    return transactions;
+		} catch (Exception e) {
+			throw new AccessException("Failed to fetch transactions", e);
+		}
+
+		return transactions;
 	}
 
 }

@@ -1,82 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
          https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
-         version="6.0">
+	version="6.0">
 
-    <display-name>DigitalTransactionLimit</display-name>
+	<display-name>DigitalTransactionLimit</display-name>
 
-    <!-- Listener -->
-    <listener>
-        <listener-class>util.DBConnectionUtil</listener-class>
-    </listener>
-    
-   <!--  <listener>
-    <listener-class>scheduler.QuartzStartupListener</listener-class>
-</listener>
-     -->
+	<!-- Listener -->
+	<listener>
+		<listener-class>util.DBConnectionUtil</listener-class>
+	</listener>
 
-    <!-- User Registration -->
-    <servlet>
-        <servlet-name>UserRegistrationServlet</servlet-name>
-        <servlet-class>servlet.UserRegistrationServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>UserRegistrationServlet</servlet-name>
-        <url-pattern>/user/register</url-pattern>
-    </servlet-mapping>
+	<listener>
+		<listener-class>scheduler.QuartzStartupListener</listener-class>
+	</listener>
 
-    <!-- Login -->
-    <servlet>
-        <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>servlet.LoginServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/login</url-pattern>
-    </servlet-mapping>
 
-    <!-- Transaction -->
-    <servlet>
-        <servlet-name>TransactionServlet</servlet-name>
-        <servlet-class>servlet.TransactionServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>TransactionServlet</servlet-name>
-        <url-pattern>/upi/transaction</url-pattern>
-    </servlet-mapping>
 
-    <!-- Transaction History -->
-    <servlet>
-        <servlet-name>TransactionHistoryServlet</servlet-name>
-        <servlet-class>servlet.TransactionHistoryServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>TransactionHistoryServlet</servlet-name>
-        <url-pattern>/history</url-pattern>
-    </servlet-mapping>
+	<!-- User Registration -->
+	<servlet>
+		<servlet-name>UserRegistrationServlet</servlet-name>
+		<servlet-class>servlet.UserRegistrationServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserRegistrationServlet</servlet-name>
+		<url-pattern>/user/register</url-pattern>
+	</servlet-mapping>
 
-    <!-- QR Code -->
-    <servlet>
-        <servlet-name>QrCodeServlet</servlet-name>
-        <servlet-class>servlet.QrCodeServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>QrCodeServlet</servlet-name>
-        <url-pattern>/qr</url-pattern>
-    </servlet-mapping>
+	<!-- Login -->
+	<servlet>
+		<servlet-name>LoginServlet</servlet-name>
+		<servlet-class>servlet.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
 
-    <!-- JWT Filter -->
-    <filter>
-        <filter-name>JwtAuthFilter</filter-name>
-        <filter-class>filter.JwtAuthFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>JwtAuthFilter</filter-name>
-        <url-pattern>/upi/*</url-pattern>
-        <url-pattern>/history</url-pattern>
-        <url-pattern>/qr</url-pattern>
-    </filter-mapping>
+	<!-- Transaction -->
+	<servlet>
+		<servlet-name>TransactionServlet</servlet-name>
+		<servlet-class>servlet.TransactionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TransactionServlet</servlet-name>
+		<url-pattern>/upi/transaction</url-pattern>
+	</servlet-mapping>
+
+	<!-- Transaction History -->
+	<servlet>
+		<servlet-name>TransactionHistoryServlet</servlet-name>
+		<servlet-class>servlet.TransactionHistoryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TransactionHistoryServlet</servlet-name>
+		<url-pattern>/history</url-pattern>
+	</servlet-mapping>
+
+	<!-- QR Code -->
+	<servlet>
+		<servlet-name>QrCodeServlet</servlet-name>
+		<servlet-class>servlet.QrCodeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>QrCodeServlet</servlet-name>
+		<url-pattern>/qr</url-pattern>
+	</servlet-mapping>
+
+	<!-- JWT Filter -->
+	<filter>
+		<filter-name>JwtAuthFilter</filter-name>
+		<filter-class>filter.JwtAuthFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>JwtAuthFilter</filter-name>
+		<url-pattern>/upi/*</url-pattern>
+		<url-pattern>/history</url-pattern>
+		<url-pattern>/qr</url-pattern>
+	</filter-mapping>
 
 </web-app>

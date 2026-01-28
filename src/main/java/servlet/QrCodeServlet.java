@@ -8,13 +8,13 @@ import util.QRCodeUtil;
 import java.io.IOException;
 
  public class QrCodeServlet extends HttpServlet {
+	 public static final long serialVersionUI= 5;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 
         String accountNumber = req.getParameter("accountNumber");
-        String amount = req.getParameter("amount");
 
         if (accountNumber == null) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "ACCOUNT_NUMBER_REQUIRED");
@@ -22,6 +22,7 @@ import java.io.IOException;
         }
 
          String qrData = "upi://pay?acc=" + accountNumber;
+         String amount = req.getParameter("amount");
 
         if (amount != null) {
             qrData += "&amt=" + amount;

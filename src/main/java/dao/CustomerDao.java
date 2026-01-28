@@ -17,7 +17,7 @@ public class CustomerDao {
 	private static final int FOURTH_PARAM_INDEX = 4;
 	private static final int FIFTH_PARAM_INDEX = 5;
 
-	public long createCustomer(String name, String mobile, String email, String user_name, String password)
+	public long createCustomer(String name, String mobile, String email, String userName, String password)
 			throws SQLException {
 
 		String sql = "INSERT INTO customer (name, mobile, email,user_name,password) VALUES (?, ?, ?, ? , ? )";
@@ -28,7 +28,7 @@ public class CustomerDao {
 			ps.setString(FIRST_PARAM_INDEX, name);
 			ps.setString(SECOND_PARAM_INDEX, mobile);
 			ps.setString(THIRD_PARAM_INDEX, email);
-			ps.setString(FOURTH_PARAM_INDEX, user_name);
+			ps.setString(FOURTH_PARAM_INDEX, userName);
 			ps.setString(FIFTH_PARAM_INDEX, password);
 
 			ps.executeUpdate();
@@ -39,7 +39,6 @@ public class CustomerDao {
 			}
 
 		} catch (Exception e) {
-			throw new AccessException("Customer creation failed");
 		}
 
 		throw new AccessException("Customer creation failed");
