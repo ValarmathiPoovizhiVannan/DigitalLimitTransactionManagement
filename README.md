@@ -70,4 +70,6 @@ It uses **Servlets** and **JDBC** without any frameworks.
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/5add98ee-325d-48c9-8cc8-786a70465ba0" />
 <img width="1911" height="1070" alt="image" src="https://github.com/user-attachments/assets/4daf4ef4-82aa-4046-b052-2137708b8236" />
 <img width="1912" height="1070" alt="image" src="https://github.com/user-attachments/assets/7db431c9-4bf5-4d3b-8a94-f236037e79e5" />
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/906133b8-03ff-435c-bfd8-59099bcbe794" />
+
 
