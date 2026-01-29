@@ -38,7 +38,7 @@ It uses **Servlets** and **JDBC** without any frameworks.
 ###  Pagination & Performance
 - Pagination for transaction history and account listings
 - HikariCP connection pooling for high-performance database access
-
+---
 ###  Database Management
 - Liquibase for database versioning and schema migration
 
@@ -63,7 +63,7 @@ It uses **Servlets** and **JDBC** without any frameworks.
 - Code coverage with JaCoCo
 - API testing with Postman
 - Code quality analysis with SonarQube
-
+---
 
 <img width="1916" height="1079" alt="image" src="https://github.com/user-attachments/assets/5e59877c-0a5f-4b38-8a86-21842760f482" />
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/44780fee-73c2-4d9c-8196-b7e6c54f1514" />
