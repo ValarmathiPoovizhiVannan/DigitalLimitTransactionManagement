@@ -5,9 +5,10 @@
 It uses **Servlets** and **JDBC** without any frameworks.
 
 ---
-
 ## Technologies
 - Java 21
+- Jakarta Servlet API
+- JDBC
 - Apache Tomcat
 - MySQL
 - Maven
@@ -15,17 +16,46 @@ It uses **Servlets** and **JDBC** without any frameworks.
 - JaCoCo
 - SonarQube
 - Postman
-- JDBC
-- Jakarta Servlet 
+- Docker
 
 ---
 
 ## Features
-- Create and view accounts
-- Credit and debit money
-- Store transaction history
-- Validate transactions
 
+### Security & Authentication
+- JWT token–based authentication
+- Password hashing for secure credential storage
+- Regex-based input validation
+- Servlet Filters for authentication and request validation
+
+---
+
+### Account & Transaction Management
+- Create and view accounts
+- Credit and debit transactions
+- Enforce daily transaction limits
+---
+###  Pagination & Performance
+- Pagination for transaction history and account listings
+- HikariCP connection pooling for high-performance database access
+
+###  Database Management
+- Liquibase for database versioning and schema migration
+
+---
+### Scheduling & Automation
+- Scheduler for periodic tasks:
+  - Daily limit reset
+---
+
+### Documentation & Visualization
+- Mermaid diagrams for:
+  - System architecture
+  - Transaction flow
+---
+###  Deployment
+- Dockerized application
+- Containerized MySQL and Tomcat setup
 ---
 
 ## Testing
